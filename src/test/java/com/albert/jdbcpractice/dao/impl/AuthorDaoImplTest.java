@@ -52,4 +52,27 @@ public class AuthorDaoImplTest {
                 any(AuthorDaoImpl.AuthorRowMapper.class)
         );
     }
+
+    @Test
+    public void testThatUpdatesReturnsCorrectSql(){
+        Author author = TestDataUtil.createTestAuthorA();
+        underTest.update(author.getId(), author);
+
+        verify(jdbcTemplate).update(
+                eq("UPDATE authors SET id = ?, name = ?, age = ? WHERE id = ?"),
+                eq(author.getId()),
+                eq(author.getName()),
+                eq(author.getAge()),
+                eq(author.getId())
+        );
+    }
+
+    @Test
+    public void testThatDeletesReturnsCorrectSql(){
+        Author author = TestDataUtil.createTestAuthorA();
+        underTest.delete(author);
+
+        verify(jdbcTemplate).update("DELETE FROM authors WHERE id = ?",
+                author.getId());
+    }
 }

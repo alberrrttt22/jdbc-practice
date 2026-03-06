@@ -29,21 +29,37 @@ public class BookDaoImplTest {
         underTest.create(book);
 
         verify(jdbcTemplate).update(eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
-                eq("123-456"), eq("Bla Bla Bla"), eq(1L));
+                eq("123-456"), eq("Bla Bla Bla 1"), eq(1L));
     }
 
     @Test
-    public void testThatReadsOneReturnsCorrectSQL(){
+    public void testThatReadsOneReturnsCorrectSql(){
         underTest.findOne("123-456");
 
         verify(jdbcTemplate).query(eq("SELECT isbn, title, author_id FROM books WHERE isbn = ? LIMIT 1"), any(BookDaoImpl.BookRowMapper.class), eq("123-456"));
     }
 
     @Test
-    public void testThatFindsAllReturnsCorrectSQL(){
+    public void testThatFindsAllReturnsCorrectSql(){
         underTest.find();
 
         verify(jdbcTemplate).query(eq("SELECT isbn, title, author_id FROM books"), any(BookDaoImpl.BookRowMapper.class));
     }
 
+    @Test
+    public void testThatUpdateReturnsCorrectSql(){
+        Book book = TestDataUtil.createTestBookA();
+        underTest.update(book.getIsbn(), book);
+        verify(jdbcTemplate).update(eq("UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?"),
+                eq(book.getIsbn()), eq(book.getTitle()), eq(book.getAuthorId()), eq(book.getIsbn()));
+    }
+
+    @Test
+    public void testThatDeletesReturnsCorrectSql(){
+        Book book = TestDataUtil.createTestBookA();
+        underTest.delete(book);
+
+        verify(jdbcTemplate).update("DELETE FROM books WHERE isbn = ?",
+                book.getIsbn());
+    }
 }

@@ -20,7 +20,7 @@ public class TestDataUtil {
         return Author.builder()
                 .id(2L)
                 .name("Author B")
-                .age(80)
+                .age(90)
                 .build();
     }
 
@@ -28,14 +28,14 @@ public class TestDataUtil {
         return Author.builder()
                 .id(3L)
                 .name("Author C")
-                .age(80)
+                .age(100)
                 .build();
     }
 
     public static Book createTestBookA() {
         Book book = Book.builder()
                 .isbn("123-456")
-                .title("Bla Bla Bla")
+                .title("Bla Bla Bla 1")
                 .authorId(1L)
                 .build();
         return book;
@@ -43,8 +43,8 @@ public class TestDataUtil {
 
     public static Book createTestBookB() {
         Book book = Book.builder()
-                .isbn("2")
-                .title("Bla Bla Bla")
+                .isbn("234-567")
+                .title("Bla Bla Bla 2")
                 .authorId(1L)
                 .build();
         return book;
@@ -52,8 +52,8 @@ public class TestDataUtil {
 
     public static Book createTestBookC() {
         Book book = Book.builder()
-                .isbn("3")
-                .title("Bla Bla Bla")
+                .isbn("345-678")
+                .title("Bla Bla Bla 3")
                 .authorId(1L)
                 .build();
         return book;
