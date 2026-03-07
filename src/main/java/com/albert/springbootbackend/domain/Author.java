@@ -1,4 +1,4 @@
-package com.albert.jdbcpractice.domain;
+package com.albert.springbootbackend.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Book {
+public class Author {
 
-    private String isbn;
+    private Long id;
 
-    private String title;
+    private String name;
 
-    private Long authorId;
-
+    private Integer age;
 
 }

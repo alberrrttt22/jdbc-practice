@@ -1,9 +1,7 @@
-package com.albert.jdbcpractice.dao.impl;
+package com.albert.springbootbackend.dao.impl;
 
-import com.albert.jdbcpractice.JdbcPracticeApplication;
-import com.albert.jdbcpractice.dao.AuthorDao;
-import com.albert.jdbcpractice.domain.Author;
-import lombok.extern.apachecommons.CommonsLog;
+import com.albert.springbootbackend.dao.AuthorDao;
+import com.albert.springbootbackend.domain.Author;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

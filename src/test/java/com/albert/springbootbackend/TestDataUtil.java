@@ -1,7 +1,7 @@
-package com.albert.jdbcpractice;
+package com.albert.springbootbackend;
 
-import com.albert.jdbcpractice.domain.Author;
-import com.albert.jdbcpractice.domain.Book;
+import com.albert.springbootbackend.domain.Author;
+import com.albert.springbootbackend.domain.Book;
 
 public class TestDataUtil {
 

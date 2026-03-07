@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.albert</groupId>
-	<artifactId>JDBC-Practice</artifactId>
+	<artifactId>spring-boot-backend-practice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JDBC-Practice</name>
-	<description>Practice jdbc CRUD operations and more</description>
+	<name>spring-boot-backend-practice</name>
+	<description>Practice JDBC and JPA CRUD operations and more</description>
 	<url/>
 	<licenses>
 		<license/>

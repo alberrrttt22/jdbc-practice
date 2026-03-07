@@ -1,7 +1,7 @@
-package com.albert.jdbcpractice.dao.impl;
+package com.albert.springbootbackend.dao.impl;
 
-import com.albert.jdbcpractice.TestDataUtil;
-import com.albert.jdbcpractice.domain.Author;
+import com.albert.springbootbackend.TestDataUtil;
+import com.albert.springbootbackend.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

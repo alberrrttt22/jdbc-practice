@@ -1,6 +1,6 @@
-package com.albert.jdbcpractice.dao;
+package com.albert.springbootbackend.dao;
 
-import com.albert.jdbcpractice.domain.Book;
+import com.albert.springbootbackend.domain.Book;
 
 import java.util.List;
 import java.util.Optional;
