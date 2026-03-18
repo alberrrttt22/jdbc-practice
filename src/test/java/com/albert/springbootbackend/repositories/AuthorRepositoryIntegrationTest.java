@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,28 +48,45 @@ public class AuthorRepositoryIntegrationTest {
         Iterable<Author> result = underTest.findAll();
         assertThat(result).hasSize(3).containsExactly(authorA, authorB, authorC);
     }
-//
-//    @Test
-//    public void testThatAuthorCanBeUpdated(){
-//        Author authorA = TestDataUtil.createTestAuthorA();
-//        Author authorB = TestDataUtil.createTestAuthorB();
-//
-//        underTest.create(authorA);
-//
-//        underTest.update(authorA.getId(), authorB);
-//        // Now have authorA entry is replaced by authorB
-//        Optional<Author> author = underTest.findOne(authorB.getId());
-//        assertThat(author).isPresent();
-//        assertThat(author.get()).isEqualTo(authorB);
-//    }
-//
-//    @Test
-//    public void testThatAuthorCanBeDeleted(){
-//        Author author = TestDataUtil.createTestAuthorA();
-//        underTest.create(author);
-//        underTest.delete(author);
-//
-//        Optional<Author> result = underTest.findOne(author.getId());
-//        assertThat(result).isEmpty();
-//    }
+
+    @Test
+    public void testThatAuthorCanBeUpdated(){
+        Author authorA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorA);
+        authorA.setName("UPDATED");
+        underTest.save(authorA);
+        Optional<Author> result = underTest.findById(authorA.getId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(authorA);
+    }
+
+    @Test
+    public void testThatAuthorCanBeDeleted(){
+        Author author = TestDataUtil.createTestAuthorA();
+        underTest.save(author);
+        underTest.deleteById(author.getId());
+
+        Optional<Author> result = underTest.findById(author.getId());
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void testThatAgeLessThan80CanBeFound(){
+        Author author = TestDataUtil.createTestAuthorA();
+        underTest.save(author);
+        Optional<Author> result = underTest.ageLessThan(90);
+        assertThat(result).contains(author);
+    }
+
+    @Test
+    public void testHQLCustomCommandsReturnCorrectly(){
+        Author authorA = TestDataUtil.createTestAuthorA();
+        Author authorB = TestDataUtil.createTestAuthorB();
+        Author authorC = TestDataUtil.createTestAuthorC();
+        underTest.save(authorA);
+        underTest.save(authorB);
+        underTest.save(authorC);
+        Iterable<Author> result = underTest.findAgeIsMoreThan(80);
+        assertThat(result).containsExactly(authorB, authorC);
+    }
 }

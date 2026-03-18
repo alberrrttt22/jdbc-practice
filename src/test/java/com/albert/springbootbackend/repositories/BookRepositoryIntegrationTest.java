@@ -55,40 +55,31 @@ public class BookRepositoryIntegrationTest {
                 .containsExactly(savedBookA, savedBookB, savedBookC);
 
     }
-//
-//    @Test
-//    public void testThatBookCanBeUpdated(){
-//        Book bookA = TestDataUtil.createTestBookA();
-//        Author author = TestDataUtil.createTestAuthorA();
-//        bookA.setAuthorId(author.getId());
-//
-//        Book bookB = TestDataUtil.createTestBookB();
-//        bookB.setAuthorId(author.getId());
-//
-//        authorDao.create(author);
-//        underTest.create(bookA);
-//
-//        underTest.update(bookA.getIsbn(), bookB);
-//
-//        Optional<Book> result = underTest.findOne(bookB.getIsbn());
-//
-//        assertThat(result).isPresent();
-//        assertThat(result.get()).isEqualTo(bookB);
-//    }
-//
-//    @Test
-//    public void testThatBookCanBeDeleted(){
-//        Book book = TestDataUtil.createTestBookA();
-//        Author author = TestDataUtil.createTestAuthorA();
-//
-//        book.setAuthorId(author.getId());
-//
-//        authorDao.create(author);
-//        underTest.create(book);
-//
-//        underTest.delete(book);
-//        Optional<Book> result = underTest.findOne(book.getIsbn());
-//        assertThat(result).isEmpty();
-//    }
-//
+
+    @Test
+    public void testThatBookCanBeUpdated(){
+        Author author = TestDataUtil.createTestAuthorA();
+        Book bookA = TestDataUtil.createTestBookA(author);
+
+        Book savedBookA = underTest.save(bookA);
+        bookA.setTitle("UPDATED");
+        savedBookA = underTest.save(bookA);
+
+        Optional<Book> result = underTest.findById(bookA.getIsbn());
+
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(savedBookA);
+    }
+
+    @Test
+    public void testThatBookCanBeDeleted(){
+        Author author = TestDataUtil.createTestAuthorA();
+        Book book = TestDataUtil.createTestBookA(author);
+
+        underTest.save(book);
+        underTest.deleteById(book.getIsbn());
+        Optional<Book> result = underTest.findById(book.getIsbn());
+        assertThat(result).isEmpty();
+    }
+
 }
