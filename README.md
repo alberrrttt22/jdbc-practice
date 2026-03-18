@@ -9,14 +9,14 @@ A hands-on backend project built to reinforce core Java backend concepts using S
 - Docker / Docker Compose
 - Maven
 - Lombok
-- H2 Database
+- H2 Database (for testing)
 
 ## Branches
 
 | Branch | Description
 |---|---|
-|main|JDBC implementation using JdbcTemplate and DAO pattern|
-| jpa-implementation|JPA/Hibernate with Spring Data JPA (in progress) |
+| jpa-implementation|JPA/Hibernate with Spring Data JPA and REST endpoints (in progress) |
+|jdbc|JDBC implementation using JdbcTemplate and DAO pattern|
 
 ## How to Run
 Prerequisites: Docker, Java 21
@@ -46,4 +46,4 @@ docker-compose up -d
 
 - Entity mapping with @Entity, @OneToMany, @ManyToOne
 - Spring Data JPA repositories
-- Understanding and resolving the N + 1 query problem using JOIN FETCH
+- Rest Endpoints for CRUD functions
