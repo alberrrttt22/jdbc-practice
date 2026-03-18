@@ -1,58 +1,58 @@
 package com.albert.springbootbackend;
 
-import com.albert.springbootbackend.domain.Author;
-import com.albert.springbootbackend.domain.Book;
+import com.albert.springbootbackend.domain.AuthorEntity;
+import com.albert.springbootbackend.domain.BookEntity;
 
 public class TestDataUtil {
 
     private TestDataUtil() {
     }
 
-    public static Author createTestAuthorA() {
-        return Author.builder()
+    public static AuthorEntity createTestAuthorA() {
+        return AuthorEntity.builder()
                 .name("Abigail Rose")
                 .age(80)
                 .build();
     }
 
-    public static Author createTestAuthorB() {
-        return Author.builder()
-                .name("Author B")
+    public static AuthorEntity createTestAuthorB() {
+        return AuthorEntity.builder()
+                .name("AuthorEntity B")
                 .age(90)
                 .build();
     }
 
-    public static Author createTestAuthorC() {
-        return Author.builder()
-                .name("Author C")
+    public static AuthorEntity createTestAuthorC() {
+        return AuthorEntity.builder()
+                .name("AuthorEntity C")
                 .age(100)
                 .build();
     }
 
-    public static Book createTestBookA(final Author author) {
-        Book book = Book.builder()
+    public static BookEntity createTestBookA(final AuthorEntity authorEntity) {
+        BookEntity bookEntity = BookEntity.builder()
                 .isbn("123-456")
                 .title("Bla Bla Bla 1")
-                .author(author)
+                .authorEntity(authorEntity)
                 .build();
-        return book;
+        return bookEntity;
     }
 
-    public static Book createTestBookB(final Author author) {
-        Book book = Book.builder()
+    public static BookEntity createTestBookB(final AuthorEntity authorEntity) {
+        BookEntity bookEntity = BookEntity.builder()
                 .isbn("234-567")
                 .title("Bla Bla Bla 2")
-                .author(author)
+                .authorEntity(authorEntity)
                 .build();
-        return book;
+        return bookEntity;
     }
 
-    public static Book createTestBookC(final Author author) {
-        Book book = Book.builder()
+    public static BookEntity createTestBookC(final AuthorEntity authorEntity) {
+        BookEntity bookEntity = BookEntity.builder()
                 .isbn("345-678")
                 .title("Bla Bla Bla 3")
-                .author(author)
+                .authorEntity(authorEntity)
                 .build();
-        return book;
+        return bookEntity;
     }
 }
