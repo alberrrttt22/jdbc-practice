@@ -35,7 +35,7 @@ docker-compose up -d
 
 ## Key Concepts Learnt
 
-### JDBC (main branch)
+### JDBC (jdbc branch)
 
 
 - DAO pattern with JdbcTemplate for clean separation of data access logic
