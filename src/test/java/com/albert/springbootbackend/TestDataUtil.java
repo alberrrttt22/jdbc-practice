@@ -2,6 +2,7 @@ package com.albert.springbootbackend;
 
 import com.albert.springbootbackend.domain.AuthorEntity;
 import com.albert.springbootbackend.domain.BookEntity;
+import com.albert.springbootbackend.domain.dto.AuthorDto;
 
 public class TestDataUtil {
 
@@ -15,6 +16,13 @@ public class TestDataUtil {
                 .build();
     }
 
+    public static AuthorDto createTestAuthorDtoA() {
+        return AuthorDto.builder()
+                .name("Abigail Rose")
+                .age(80)
+                .build();
+    }
+
     public static AuthorEntity createTestAuthorB() {
         return AuthorEntity.builder()
                 .name("AuthorEntity B")
@@ -22,8 +30,22 @@ public class TestDataUtil {
                 .build();
     }
 
+    public static AuthorDto createTestAuthorDtoB() {
+        return AuthorDto.builder()
+                .name("AuthorDto B")
+                .age(90)
+                .build();
+    }
+
     public static AuthorEntity createTestAuthorC() {
         return AuthorEntity.builder()
+                .name("AuthorEntity C")
+                .age(100)
+                .build();
+    }
+
+    public static AuthorDto createTestAuthorDtoC() {
+        return AuthorDto.builder()
                 .name("AuthorEntity C")
                 .age(100)
                 .build();
