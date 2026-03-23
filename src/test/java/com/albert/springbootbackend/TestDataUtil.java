@@ -56,7 +56,7 @@ public class TestDataUtil {
         BookEntity bookEntity = BookEntity.builder()
                 .isbn("123-456")
                 .title("Bla Bla Bla 1")
-                .authorEntity(authorEntity)
+                .author(authorEntity)
                 .build();
         return bookEntity;
     }
@@ -65,7 +65,7 @@ public class TestDataUtil {
         BookDto bookDto = BookDto.builder()
                 .isbn("123-456")
                 .title("Bla Bla Bla 1")
-                .authorDto(authorDto)
+                .author(authorDto)
                 .build();
         return bookDto;
     }
@@ -74,7 +74,7 @@ public class TestDataUtil {
         BookEntity bookEntity = BookEntity.builder()
                 .isbn("234-567")
                 .title("Bla Bla Bla 2")
-                .authorEntity(authorEntity)
+                .author(authorEntity)
                 .build();
         return bookEntity;
     }
@@ -83,7 +83,7 @@ public class TestDataUtil {
         BookDto bookDto = BookDto.builder()
                 .isbn("123-456")
                 .title("Bla Bla Bla 1")
-                .authorDto(authorDto)
+                .author(authorDto)
                 .build();
         return bookDto;
     }
@@ -92,7 +92,7 @@ public class TestDataUtil {
         BookEntity bookEntity = BookEntity.builder()
                 .isbn("345-678")
                 .title("Bla Bla Bla 3")
-                .authorEntity(authorEntity)
+                .author(authorEntity)
                 .build();
         return bookEntity;
     }
@@ -101,7 +101,7 @@ public class TestDataUtil {
         BookDto bookDto = BookDto.builder()
                 .isbn("123-456")
                 .title("Bla Bla Bla 1")
-                .authorDto(authorDto)
+                .author(authorDto)
                 .build();
         return bookDto;
     }

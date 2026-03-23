@@ -117,9 +117,9 @@ public class BookControllerIntegrationTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/books")
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].isbn").value(book.getIsbn())
+                MockMvcResultMatchers.jsonPath("$.content[0].isbn").value(book.getIsbn())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].title").value(book.getTitle())
+                MockMvcResultMatchers.jsonPath("$.content[0].title").value(book.getTitle())
         );
     }
 
@@ -181,6 +181,8 @@ public class BookControllerIntegrationTest {
         bookDto.setTitle("UPDATED");
         mockMvc.perform(
                 MockMvcRequestBuilders.patch("/api/v1/books/" + bookEntity.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookDto))
         ).andExpect(
                 MockMvcResultMatchers.status().isOk()
         );
