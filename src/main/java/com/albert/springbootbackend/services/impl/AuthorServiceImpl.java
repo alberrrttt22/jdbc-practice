@@ -3,6 +3,8 @@ package com.albert.springbootbackend.services.impl;
 import com.albert.springbootbackend.domain.AuthorEntity;
 import com.albert.springbootbackend.repositories.AuthorRepository;
 import com.albert.springbootbackend.services.AuthorService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +34,11 @@ public class AuthorServiceImpl implements AuthorService {
                         .spliterator(),
                         false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AuthorEntity> findAll(Pageable pageable) {
+        return authorRepository.findAll(pageable);
     }
 
     @Override
