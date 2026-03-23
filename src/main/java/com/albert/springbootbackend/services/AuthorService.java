@@ -1,9 +1,21 @@
 package com.albert.springbootbackend.services;
 
 import com.albert.springbootbackend.domain.AuthorEntity;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface AuthorService {
 
-    public AuthorEntity createAuthor(AuthorEntity authorEntity);
+    public AuthorEntity save(AuthorEntity authorEntity);
+
+    List<AuthorEntity> findAll();
+
+    Optional<AuthorEntity> findOne(Long id);
+
+    boolean isExists(Long id);
+
+    AuthorEntity patchAuthor(Long id, AuthorEntity authorEntity);
+
+    void deleteAuthor(Long id);
 }
