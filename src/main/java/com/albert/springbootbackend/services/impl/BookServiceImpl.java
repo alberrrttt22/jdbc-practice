@@ -3,6 +3,7 @@ package com.albert.springbootbackend.services.impl;
 import com.albert.springbootbackend.domain.BookEntity;
 import com.albert.springbootbackend.repositories.BookRepository;
 import com.albert.springbootbackend.services.BookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -24,12 +26,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookEntity createUpdateBook(String isbn, BookEntity bookEntity) {
         bookEntity.setIsbn(isbn);
+        log.info("Updated/Created book with isbn : {}", bookEntity.getIsbn());
         return bookRepository.save(bookEntity);
     }
 
     @Override
     public List<BookEntity> findAll() {
         Iterable<BookEntity> books = bookRepository.findAll();
+        log.debug("Fetching all books without pagination");
         return StreamSupport
                 .stream(books
                         .spliterator(),
@@ -39,16 +43,19 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<BookEntity> findAll(Pageable pageable) {
+        log.debug("Fetching all books with pagination");
         return bookRepository.findAll(pageable);
     }
 
     @Override
     public Optional<BookEntity> findOne(String isbn) {
+        log.debug("Fetching book with isbn : {}", isbn);
         return bookRepository.findById(isbn);
     }
 
     @Override
     public boolean isExists(String isbn) {
+        log.debug("Checking if book with isbn : {} exists", isbn);
         return bookRepository.existsById(isbn);
     }
 
@@ -57,14 +64,23 @@ public class BookServiceImpl implements BookService {
         bookEntity.setIsbn(isbn);
         return bookRepository.findById(isbn).map(
                 existingBook -> {
-                    Optional.ofNullable(bookEntity.getTitle()).ifPresent(existingBook::setTitle);
+                    Optional.ofNullable(bookEntity.getTitle()).ifPresent(
+                            title -> {
+                                log.info("Updating title of book with isbn : {}", isbn);
+                                existingBook.setTitle(title);
+                            }
+                    );
                     return bookRepository.save(existingBook);
                 }
-        ).orElseThrow(() -> new RuntimeException("Book not found!"));
+        ).orElseThrow(() -> {
+            log.error("Book not found");
+            return new RuntimeException("Book not found!");
+        });
     }
 
     @Override
     public void deleteBook(String isbn) {
+        log.info("Deleting book with isbn : {}", isbn);
         bookRepository.deleteById(isbn);
     }
 }
