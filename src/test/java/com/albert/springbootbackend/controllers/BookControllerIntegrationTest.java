@@ -1,7 +1,9 @@
 package com.albert.springbootbackend.controllers;
 
 import com.albert.springbootbackend.TestDataUtil;
+import com.albert.springbootbackend.domain.AuthorEntity;
 import com.albert.springbootbackend.domain.BookEntity;
+import com.albert.springbootbackend.domain.dto.AuthorDto;
 import com.albert.springbootbackend.domain.dto.BookDto;
 import com.albert.springbootbackend.services.BookService;
 import org.junit.jupiter.api.Test;
@@ -224,6 +226,45 @@ public class BookControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
                 MockMvcResultMatchers.status().isNoContent()
+        );
+    }
+
+    @Test
+    public void testThatCreatingBookWithAnExistingAuthorEntityReturnsCorrectAuthor() throws Exception{
+        AuthorDto authorDto = TestDataUtil.createTestAuthorDtoA();
+        String authorResponse = mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/v1/authors")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(authorDto))
+        ).andReturn().getResponse().getContentAsString();
+
+        Long authorId = objectMapper.readTree(authorResponse).get("id").asLong();
+        authorDto.setId(authorId);
+
+        BookDto bookDto = TestDataUtil.createTestBookDtoA(authorDto);
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/api/v1/books/" + bookDto.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookDto))
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.author.id").value(authorId)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.author.name").value(authorDto.getName())
+        );
+    }
+
+    @Test
+    public void testThatCreatingBookWithANonExistingAuthorEntityReturnsHttpStatus404() throws Exception{
+        AuthorDto authorDto = TestDataUtil.createTestAuthorDtoA();
+        authorDto.setId(1L);
+
+        BookDto bookDto = TestDataUtil.createTestBookDtoA(authorDto);
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/api/v1/books/" + bookDto.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookDto))
+        ).andExpect(
+                MockMvcResultMatchers.status().isNotFound()
         );
     }
 

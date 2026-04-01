@@ -1,6 +1,8 @@
 package com.albert.springbootbackend.services.impl;
 
+import com.albert.springbootbackend.domain.AuthorEntity;
 import com.albert.springbootbackend.domain.BookEntity;
+import com.albert.springbootbackend.repositories.AuthorRepository;
 import com.albert.springbootbackend.repositories.BookRepository;
 import com.albert.springbootbackend.services.BookService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +20,23 @@ import java.util.stream.StreamSupport;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Override
     public BookEntity createUpdateBook(String isbn, BookEntity bookEntity) {
         bookEntity.setIsbn(isbn);
+        if (bookEntity.getAuthor() != null && bookEntity.getAuthor().getId() != null){
+            Long authorId = bookEntity.getAuthor().getId();
+            AuthorEntity authorEntity = authorRepository.findById(authorId)
+                    .orElseThrow(() -> new RuntimeException("Author not found with id: " + authorId));
+            bookEntity.setAuthor(authorEntity);
+            log.info("Linking book with isbn: {} to author id: {}", isbn, authorId);
+        }
         log.info("Updated/Created book with isbn : {}", bookEntity.getIsbn());
         return bookRepository.save(bookEntity);
     }
