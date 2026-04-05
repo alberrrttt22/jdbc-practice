@@ -75,10 +75,17 @@ public class BookServiceImpl implements BookService {
         bookEntity.setIsbn(isbn);
         return bookRepository.findById(isbn).map(
                 existingBook -> {
+                    log.debug("Existing book author: {}", existingBook.getAuthor());
                     Optional.ofNullable(bookEntity.getTitle()).ifPresent(
                             title -> {
                                 log.info("Updating title of book with isbn : {}", isbn);
                                 existingBook.setTitle(title);
+                            }
+                    );
+                    Optional.ofNullable(bookEntity.getAuthor()).ifPresent(
+                            author -> {
+                                log.info("Updating author of book with isbn : {}", isbn);
+                                existingBook.setAuthor(author);
                             }
                     );
                     return bookRepository.save(existingBook);
