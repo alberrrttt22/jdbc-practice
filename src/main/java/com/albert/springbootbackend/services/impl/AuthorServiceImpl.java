@@ -1,13 +1,16 @@
 package com.albert.springbootbackend.services.impl;
 
 import com.albert.springbootbackend.domain.AuthorEntity;
+import com.albert.springbootbackend.domain.BookEntity;
 import com.albert.springbootbackend.repositories.AuthorRepository;
+import com.albert.springbootbackend.repositories.BookRepository;
 import com.albert.springbootbackend.services.AuthorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,9 +21,12 @@ import java.util.stream.StreamSupport;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
 
-    public AuthorServiceImpl(AuthorRepository authorRepository){
+    public AuthorServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository) {
+
         this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
     }
 
     @Override
@@ -82,7 +88,13 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthor(Long id) {
-        log.info("Deleting author with id : {}", id);
-        authorRepository.deleteById(id);
+       bookRepository.findByAuthorId(id).forEach(
+                book -> {
+                    book.setAuthor(null);
+                    bookRepository.save(book);
+                }
+       );
+       log.info("Deleting author with id : {}", id);
+       authorRepository.deleteById(id);
     }
 }
