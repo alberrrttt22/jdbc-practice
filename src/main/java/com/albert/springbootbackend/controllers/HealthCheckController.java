@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RequestMapping("/api/v1")
 @RestController
 public class HealthCheckController {
 
