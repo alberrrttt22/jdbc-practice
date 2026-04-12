@@ -16,15 +16,6 @@ containerised deployment via Docker and Docker Compose.
 - Lombok
 - H2 Database (for testing)
 
-## Branches
-
-| Branch | Description |
-|---|---|
-| `main` | JPA/Hibernate with Spring Data JPA, REST endpoints, and Docker containerisation |
-| `jdbc` | Alternative JDBC implementation using JdbcTemplate and DAO pattern |
-
-Both branches implement the same API surface — the difference is the data access strategy, allowing a direct comparison between JPA/Hibernate and plain JDBC approaches.
-
 ## Getting Started
 
 ### Prerequisites
@@ -101,6 +92,7 @@ A Postman collection is available in the `/postman` directory for manual testing
 ## Planned
 
 - User accounts and shelf management (Want to Read / Currently Reading / Read)
+- User authentication via JWT
 - Open Library integration for book enrichment and deduplication
 - Ratings, notes, and reading history
 - Telegram bot frontend
